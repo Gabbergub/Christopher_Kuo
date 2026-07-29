@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Christopher Kuo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.typekit.net/wdf1art.css">
+    <link rel="stylesheet" href="">
+</head>
+<style>
+    body {
+        background-color: #000000;
+        font-family: Arial, sans-serif;
+        /*line-height: 1.6;*/
+        margin: 20px;
+        font-family: "itc-avant-garde-gothic-pro", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+        color: #ffffff;
+    }
+
+    /* PragmataPro Fraktur Regular 
+    font-family: "pragmatapro-fraktur",serif;
+    font-weight: 400;
+    font-style: normal;
+
+    Bodega Serif Light
+    font-family: "bodega-serif", serif;
+    font-weight: 300;
+    font-style: normal;
+
+    ITC Avant Garde Gothic Pro Book
+    font-family: "itc-avant-garde-gothic-pro", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+
+    Redaction 20 Italic
+    font-family: "redaction-20", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+
+    Redaction 35 Regular
+    font-family: "redaction-35", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    Redaction 20 Regular
+    font-family: "redaction-20", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    Redaction 50 Regular
+    font-family: "redaction-50", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    */
+
+    .name {
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .name a {
+        color: #6495ED;
+        text-decoration: none;
+    }
+
+    .bio {
+        color: #ffffff;
+        font-size: 13px;
+        text-align: justify;
+        /* line-height: 1.6;*/
+    }
+
+    .container2 {
+        margin: 0 auto;
+        padding-top: 40px;
+        color: #ffffff;
+    }
+
+    .container1 .container2:first-child {
+        padding-top: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        color: #ffffff;
+        font-size: 13px;
+        /* line-height: 1.6;*/
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 14px;
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        color: #6495ED;
+        text-decoration: none;
+        font-family: "redaction-20", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+
+        font-family: "redaction-50", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+
+    .arrow {
+        display: inline-flex;
+        align-items: center;
+        vertical-align: middle;
+        padding-left: 3px;
+    }
+
+    .arrow-icon {
+        width: 0.8em;
+        height: 0.8em;
+        display: block;
+    }
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 50px;
+        align-items: flex-start;
+    }
+
+    .container1 {
+        flex: 1 1 220px;
+        min-width: 220px;
+    }
+
+    .container3 {
+        flex: 2 1 420px;
+        min-width: 320px;
+    }
+
+    .selected-work li {
+        margin-bottom: 10px;
+        font-size: 23px;
+        font-family: "redaction-50", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+    .selected-work li a:hover{
+        color: #ffffff;
+    }
+
+    .linebar {
+        border-top: 1px solid #ffffff;
+        margin: 10px 0;
+    }
+
+    .selected-work li {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+    }
+
+    .selected-work li a {
+        flex: 1 1 auto;
+    }
+
+    .selected-work .date {
+        flex: 0 0 auto;
+        color: #ffffff;
+        font-size: 13px;
+    }
+
+    div.scroll-container {
+        background-color: transparent;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-top: 10px;
+        padding: 0px;
+    }
+
+    .scroll-track {
+        display: inline-flex;
+        width: max-content;
+        animation: scroll-marquee 100s linear infinite;
+    }
+
+    div.scroll-container:hover .scroll-track {
+        animation-play-state: paused;
+    }
+
+    @keyframes scroll-marquee {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .scroll-track a {
+        position: relative;
+        display: block;
+        flex: 0 0 auto;
+        line-height: 0;
+        cursor: pointer;
+    }
+
+    div.scroll-container canvas.dither-canvas {
+        padding: 3px;
+        width: 300px;
+        height: auto;
+        flex: 0 0 auto;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        background-color: #000000;
+        vertical-align: top;
+        transition: opacity 0.45s ease;
+    }
+
+    .scroll-track .clear-img {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        right: 3px;
+        bottom: 3px;
+        width: calc(100% - 6px);
+        height: calc(100% - 6px);
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.45s ease;
+        pointer-events: none;
+    }
+
+    .scroll-track a:hover canvas.dither-canvas {
+        opacity: 0;
+    }
+
+    .scroll-track a:hover .clear-img {
+        opacity: 1;
+    }
+
+    .container4 {
+        margin-top: 40px;
+    }
+
+    .email{
+        font-size: 23px;
+    }
+    .email a:hover{
+        color: #ffffff;
+    }
+    .links{
+        font-size: 23px;
+    }
+    .links a:hover{
+        color: #D3D3D3;
+        color: #B2BEB5;
+        color: #ffffff;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="bio">
+            <span class="name"><a href="https://www.linkedin.com/in/christopher-kuo/">Christopher Kuo</a></span> is a
+            news associate at The Wall Street Journal. He was previously
+            a reporting fellow at the New York
+            Times, where he wrote arts and culture features and covered the business of entertainment. He has interned
+            at the
+            Tampa Bay Times and the Los Angeles Times, covering local news that ranged from wildfires and crime to city
+            politics
+            and legal disputes.
+
+            Christopher received a master’s degree in journalism from the University of Limerick in Ireland as a George
+            J.
+            Mitchell Scholar. His reporting on the changing role of the Catholic Church in Ireland earned an Overseas
+            Press Club
+            Foundation Scholar Award. He completed his bachelor’s at Duke University, where he studied English and
+            political
+            science and edited several student publications. He speaks Mandarin.
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container1">
+           <!---- <div class="container2">
+                <div class="title">Education</div>
+                <ul>
+                    <li>Duke University, B.A. in English and Political Science</li>
+                    <li>University of Limerick, M.A. in Journalism</li>
+                </ul>
+            </div>
+        -->
+            <div class="container2">
+                <div class="title">Contact</div>
+                <ul>
+                    <li>All inquiries please direct to</li>
+                    <li class="email"><a href="mailto:chris.kuo@wsj.com">chris.kuo@wsj.com</a> </li>
+                </ul>
+            </div>
+            <div class="container2">
+                <div class="title">Links</div>
+                <ul>
+                    <li class="links"><a href="https://x.com/chriskuo17">Twitter <span class="arrow"><svg class="arrow-icon"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="19" x2="19" y2="5"></line>
+                                    <polyline points="9 5 19 5 19 15"></polyline>
+                                </svg></span></a></li>
+                    <li class="links"><a href="https://www.instagram.com/chriskuo_reports?igsh=MW9xd2prMTRtcDk0aQ==">Instagram <span
+                                class="arrow"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="5" y1="19" x2="19" y2="5"></line>
+                                    <polyline points="9 5 19 5 19 15"></polyline>
+                                </svg></span></a>
+                    <li class="links"><a href="https://www.linkedin.com/in/christopher-kuo/">LinkedIn <span class="arrow"><svg
+                                    class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="19" x2="19" y2="5"></line>
+                                    <polyline points="9 5 19 5 19 15"></polyline>
+                                </svg></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="container3">
+            <div class="title">Selected Work</div>
+            <ul class="selected-work">
+                <li><a
+                        href="https://www.wsj.com/us-news/locals-are-clashing-with-scientologists-over-the-future-of-this-florida-downtown-4f438234?mod=author_content_page_1_pos_1">Locals
+                        Are Clashing With Scientologists Over the Future of This Florida Downtown<span
+                            class="arrow"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/us-news/happy-250th-america-the-nation-celebrates-a-milestone-weekend-4230fcdb?mod=author_content_page_1_pos_2">Happy
+                        250th! Americans Brave the Heat to Celebrate<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/business/spacex-gets-4-16-billion-contract-from-u-s-space-force-to-target-track-airborne-threats-6dd33eb7?mod=author_content_page_1_pos_3">Space
+                        Force Awards SpaceX $4.16 Billion Contract For Airborne Threat Targeting<span class="arrow"><svg
+                                class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+
+                <li><a
+                        href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-05-22-2026/card/gamestop-requests-share-count-increase-stock-slips-BQfHFtDgsjtAyutTuY96?mod=author_content_page_1_pos_4">GameStop
+                        Requests Share-Count Increase; Stock Slips<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/business/media/fanduel-chief-executive-amy-howe-departs-company-b41e538e?mod=author_content_page_1_pos_5">FanDuel
+                        Chief Executive Amy Howe Departs Company<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/business/earnings/super-micro-computer-posts-higher-profit-as-revenue-surges-3458c185?mod=author_content_page_1_pos_6">Super
+                        Micro Computer Posts Higher Profit As Revenue Surges<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+
+                <li><a
+                        href="https://www.wsj.com/business/earnings/pinterest-posts-higher-first-quarter-sales-monthly-users-56d48f55?mod=author_content_page_1_pos_7">Pinterest
+                        Posts Higher First-Quarter Sales, Monthly Users<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/business/earnings/reddit-first-quarter-profit-sales-surge-c7509cd6?mod=author_content_page_1_pos_8">Reddit
+                        First-Quarter Profit, Sales Surge<span class="arrow"><svg class="arrow-icon" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span>
+                </li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/business/retail/clorox-cuts-earnings-outlook-despite-higher-profit-8cba46f0?mod=author_content_page_1_pos_9">Clorox
+                        Cuts Earnings Outlook Despite Higher Profit<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+
+                <li><a
+                        href="https://www.wsj.com/business/retail/amgen-posts-higher-first-quarter-profit-revenue-eaf45168?mod=author_content_page_1_pos_10">Amgen
+                        Posts Higher First-Quarter Profit, Revenue<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/business/earnings/the-cheesecake-factory-posts-higher-profit-as-comparable-sales-tick-up-bd69ede7?mod=author_content_page_1_pos_11">The
+                        Cheesecake Factory Posts Higher Profit as Comparable Sales Tick Up<span class="arrow"><svg
+                                class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+                <li><a
+                        href="https://www.wsj.com/business/earnings/caesars-entertainment-posts-narrower-loss-as-revenue-rises-a2030564?mod=author_content_page_1_pos_12">Caesars
+                        Entertainment Posts Narrower Loss as Revenue Rises<span class="arrow"><svg class="arrow-icon"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="19" x2="19" y2="5"></line>
+                                <polyline points="9 5 19 5 19 15"></polyline>
+                            </svg></span></a><span class="date">2026</span></li>
+                <div class="linebar"></div>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="container4">
+        <div class="title">More Work</div>
+        <div class="scroll-container">
+            <div class="scroll-track">
+            <a href="https://www.wsj.com/business/hospitality/burger-king-president-tom-curtis-mcdonalds-video-98206ce5?mod=author_content_page_1_pos_19"><canvas class="dither-canvas" data-src="Images/im-02988171.png"></canvas><img class="clear-img" src="Images/im-02988171.png" alt=""></a>
+            <a href="https://www.wsj.com/business/a-startup-is-supplying-drones-to-high-schools-to-stop-mass-shootings-a7800ade?mod=author_content_page_1_pos_16"><canvas class="dither-canvas" data-src="Images/im-07729743.png"></canvas><img class="clear-img" src="Images/im-07729743.png" alt=""></a>
+            <a href="https://www.wsj.com/business/earnings/cracker-barrel-works-to-repair-its-business-6d57d20c?mod=author_content_page_1_pos_20"><canvas class="dither-canvas" data-src="Images/im-16296729.png"></canvas><img class="clear-img" src="Images/im-16296729.png" alt=""></a>
+            <a href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-02-19-2026/card/doordash-stock-jumps-on-strong-order-forecast-company-eyes-chatbot-era-OrVA09BuEpBI4W85jGMr?mod=author_content_page_1_pos_23"><canvas class="dither-canvas" data-src="Images/im-16614198.png"></canvas><img class="clear-img" src="Images/im-16614198.png" alt=""></a>
+            <a href="https://www.wsj.com/business/flying-taxi-maker-archer-sues-joby-accusing-rival-of-playing-down-reliance-on-china-df9a8ae9?mod=author_content_page_1_pos_18"><canvas class="dither-canvas" data-src="Images/im-29181884.png"></canvas><img class="clear-img" src="Images/im-29181884.png" alt=""></a>
+            <a href="https://www.wsj.com/politics/policy/air-safety-bill-prompted-by-d-c-disaster-fails-in-house-3b4900e1?mod=author_content_page_1_pos_21"><canvas class="dither-canvas" data-src="Images/im-56206207.png"></canvas><img class="clear-img" src="Images/im-56206207.png" alt=""></a>
+            <a href="https://www.wsj.com/business/nasa-boss-blasts-starliner-mission-that-left-astronauts-in-space-for-months-21deabe8?mod=author_content_page_1_pos_22"><canvas class="dither-canvas" data-src="Images/im-66278288.png"></canvas><img class="clear-img" src="Images/im-66278288.png" alt=""></a>
+            <a href="https://www.wsj.com/us-news/i-cant-talk-to-anybody-one-air-traffic-controllers-mental-health-struggle-debd9624?mod=author_content_page_1_pos_13"><canvas class="dither-canvas" data-src="Images/im-68513921.png"></canvas><img class="clear-img" src="Images/im-68513921.png" alt=""></a>
+            <a href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-02-18-2026/card/doordash-prepares-to-deliver-chatbots-shopping-lists-nPNruoHwOEBcc5XEZM3i?mod=author_content_page_1_pos_24"><canvas class="dither-canvas" data-src="Images/im-74654807.png"></canvas><img class="clear-img" src="Images/im-74654807.png" alt=""></a>
+            <a href="https://www.wsj.com/business/earnings/texas-instruments-logs-higher-first-quarter-profit-revenue-09b0779b?mod=author_content_page_1_pos_14"><canvas class="dither-canvas" data-src="Images/im-85026954.png"></canvas><img class="clear-img" src="Images/im-85026954.png" alt=""></a>
+            <a href="https://www.wsj.com/business/earnings/steel-dynamics-posts-higher-first-quarter-profit-sales-amid-growth-in-steel-shipments-20b5d86c?mod=author_content_page_1_pos_15"><canvas class="dither-canvas" data-src="Images/im-85475993.png"></canvas><img class="clear-img" src="Images/im-85475993.png" alt=""></a>
+            <a href="https://www.wsj.com/business/trevor-milton-pardon-nikola-trump-3163e19c?mod=author_content_page_1_pos_17"><canvas class="dither-canvas" data-src="Images/im-85692746.png"></canvas><img class="clear-img" src="Images/im-85692746.png" alt=""></a>
+               <!---- <canvas class="dither-canvas" data-src="Images/im-02988171.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-07729743.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-16296729.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-16614198.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-29181884.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-56206207.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-66278288.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-68513921.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-74654807.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-85026954.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-85475993.png"></canvas>
+                <canvas class="dither-canvas" data-src="Images/im-85692746.png"></canvas>
+            -->
+            </div>
+        </div>
+    </div>
+
+    <script src="" async defer></script>
+    <script>
+        (function () {
+            // Live black & white dither: each frame re-rolls a random threshold
+            // per pixel, so grain shifts/flickers while the underlying image
+            // shape (from grayscale luminance) stays intact.
+            var SAMPLE_WIDTH = 110; // internal dither resolution (perf + dot size)
+            var FRAME_MS = 510; // how often the noise re-rolls
+
+            function setupCanvas(canvas) {
+                var img = new Image();
+                img.onload = function () {
+                    var ratio = img.naturalHeight / img.naturalWidth;
+                    var w = SAMPLE_WIDTH;
+                    var h = Math.max(1, Math.round(w * ratio));
+
+                    // Sample the source image down to a small grayscale grid.
+                    var sampleCanvas = document.createElement("canvas");
+                    sampleCanvas.width = w;
+                    sampleCanvas.height = h;
+                    var sctx = sampleCanvas.getContext("2d");
+                    sctx.drawImage(img, 0, 0, w, h);
+
+                    var srcData;
+                    try {
+                        srcData = sctx.getImageData(0, 0, w, h).data;
+                    } catch (e) {
+                        return; // e.g. blocked by file:// CORS in some browsers
+                    }
+
+                    var lum = new Float32Array(w * h);
+                    var min = 255, max = 0;
+                    for (var i = 0, p = 0; i < srcData.length; i += 4, p++) {
+                        var g = 0.299 * srcData[i] + 0.587 * srcData[i + 1] + 0.114 * srcData[i + 2];
+                        lum[p] = g;
+                        if (g < min) min = g;
+                        if (g > max) max = g;
+                    }
+                    var range = Math.max(1, max - min);
+                    var K = 0.05; // sigmoid steepness: higher = cleaner shape, less noise
+                    for (var p2 = 0; p2 < lum.length; p2++) {
+                        var stretched = ((lum[p2] - min) / range) * 255;
+                        // S-curve so clear light/dark areas commit fully and only
+                        // mid-tone edges stay ambiguous (and therefore flicker).
+                        lum[p2] = 255 / (1 + Math.exp(-K * (stretched - 128)));
+                    }
+
+                    canvas.width = w;
+                    canvas.height = h;
+                    var ctx = canvas.getContext("2d");
+                    var frame = ctx.createImageData(w, h);
+
+                    function draw() {
+                        var d = frame.data;
+                        for (var idx = 0, di = 0; idx < lum.length; idx++, di += 4) {
+                            var on = lum[idx] > Math.random() * 255;
+                            var v = on ? 255 : 0;
+                            d[di] = v;
+                            d[di + 1] = v;
+                            d[di + 2] = v;
+                            d[di + 3] = 255;
+                        }
+                        ctx.putImageData(frame, 0, 0);
+                    }
+
+                    draw();
+                    var timer = setInterval(function () {
+                        if (document.hidden) return;
+                        draw();
+                    }, FRAME_MS);
+                    canvas._ditherTimer = timer;
+                };
+                img.src = canvas.getAttribute("data-src");
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var canvases = document.querySelectorAll("canvas.dither-canvas");
+                canvases.forEach(setupCanvas);
+            });
+        })();
+    </script>
+</body>
+
+</html>
