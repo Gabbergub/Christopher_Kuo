@@ -15,15 +15,38 @@
     <link rel="icon" type="image/x-icon" href="CK.png">
 </head>
 <style>
+    :root {
+        --bg-color: #000000;
+        --text-color: #ffffff;
+        --link-color: #6495ED;
+    }
+
+    /* Light mode: page background flips to white, "white" text flips to black */
+    body.light-mode {
+        --bg-color: #ffffff;
+        --text-color: #000000;
+    }
+
+    /* White Text toggle: only recolors the cornflower link text.
+       In dark mode it turns links white; in light mode it turns links black. */
+    body.white-on {
+        --link-color: #ffffff;
+    }
+
+    body.light-mode.white-on {
+        --link-color: #000000;
+    }
+
     body {
-        background-color: #000000;
+        background-color: var(--bg-color);
         font-family: Arial, sans-serif;
         /*line-height: 1.6;*/
         margin: 20px;
         font-family: "itc-avant-garde-gothic-pro", sans-serif;
         font-weight: 300;
         font-style: normal;
-        color: #ffffff;
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     /* PragmataPro Fraktur Regular 
@@ -64,16 +87,16 @@
 
     .name {
         font-weight: bold;
-        color: #ffffff;
+        color: var(--text-color);
     }
 
     .name a {
-        color: #6495ED;
+        color: var(--link-color);
         text-decoration: none;
     }
 
     .bio {
-        color: #ffffff;
+        color: var(--text-color);
         font-size: 16px;
         text-align: justify;
         /* line-height: 1.6;*/
@@ -82,9 +105,9 @@
     .container2 {
         margin: 0 auto;
         padding-top: 40px;
-        color: #ffffff;
+        color: var(--text-color);
     }
-    
+
 
     .container1 .container2:first-child {
         padding-top: 0;
@@ -96,7 +119,7 @@
     }
 
     li {
-        color: #ffffff;
+        color: var(--text-color);
         font-size: 16px;
         /* line-height: 1.6;*/
     }
@@ -110,7 +133,7 @@
     }
 
     a {
-        color: #6495ED;
+        color: var(--link-color);
         text-decoration: none;
         /*font-family: "redaction-50", sans-serif;
         font-weight: 400;
@@ -142,10 +165,11 @@
         margin-top: 50px;
         align-items: flex-start;
     }
+
     .container1 {
         margin: 0 auto;
         padding-bottom: 20px;
-        color: #ffffff;
+        color: var(--text-color);
     }
 
     .container1 {
@@ -169,12 +193,17 @@
         font-weight: 300;
         font-style: normal;
     }
-    .selected-work li a:hover{
-        color: #ffffff;
+
+    .selected-work li a:hover {
+        color: var(--text-color);
+    }
+
+    body.white-on .selected-work li a:hover {
+        color: #6495ED;
     }
 
     .linebar {
-        border-top: 1px solid #ffffff;
+        border-top: 1px solid var(--text-color);
         margin: 10px 0;
     }
 
@@ -191,16 +220,68 @@
 
     .selected-work .date {
         flex: 0 0 auto;
-        color: #ffffff;
+        color: var(--text-color);
         font-size: 13px;
     }
 
     div.scroll-container {
+        position: relative;
         background-color: transparent;
         overflow: hidden;
         white-space: nowrap;
         margin-top: 10px;
         padding: 0px;
+    }
+
+    .scroll-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 50%;
+        color: var(--text-color);
+        background-color: rgba(236, 236, 236, 0.35);
+        background-color: color-mix(in srgb, var(--bg-color) 45%, transparent);
+        -webkit-backdrop-filter: blur(14px) saturate(150%);
+        backdrop-filter: blur(14px) saturate(150%);
+        border: 1px solid color-mix(in srgb, var(--text-color) 18%, transparent);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        -webkit-appearance: none;
+        appearance: none;
+        opacity: 0;
+        pointer-events: none;
+        transition: background-color 0.3s ease, border-color 0.3s ease, opacity 0.25s ease;
+    }
+
+    div.scroll-container:hover .scroll-arrow,
+    .scroll-arrow:focus-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    div.scroll-container:hover .scroll-arrow:hover {
+        opacity: 0.8;
+    }
+
+    .scroll-arrow.left {
+        left: 10px;
+    }
+
+    .scroll-arrow.right {
+        right: 10px;
+    }
+
+    .scroll-arrow svg {
+        width: 20px;
+        height: 20px;
+        display: block;
     }
 
     .scroll-track {
@@ -269,19 +350,196 @@
         margin-top: 40px;
     }
 
-    .email{
+    .email {
         font-size: 23px;
     }
-    .email a:hover{
-        color: #ffffff;
+
+    .email a:hover {
+        color: var(--text-color);
     }
-    .links{
+
+    body.white-on .email a:hover {
+        color: #6495ED;
+    }
+
+    .links {
         font-size: 23px;
     }
-    .links a:hover{
-        color: #D3D3D3;
-        color: #B2BEB5;
-        color: #ffffff;
+
+    .links a:hover {
+        color: var(--text-color);
+    }
+
+    body.white-on .links a:hover {
+        color: #6495ED;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 90px;
+        height: 26px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 3px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: #6495ED;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #6495ED;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(62px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    /* Plain positioning shell (no blur/background of its own) so the two
+       glass pieces inside it — the toggle tab and the buttons panel — sit
+       side by side without nesting one inside the other. Nesting a
+       backdrop-filter element inside another backdrop-filter element makes
+       the inner one sample the outer's already-blurred backdrop instead of
+       the page, which is why the toggle wasn't reading as the same glass. */
+    .buttons-wrap {
+        position: fixed;
+        bottom: 40px;
+        right: 0px;
+        z-index: 1000;
+        display: flex;
+        align-items: stretch;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+        background-color: rgba(236, 236, 236, 0.35);
+        background-color: color-mix(in srgb, var(--bg-color) 45%, transparent);
+        -webkit-backdrop-filter: blur(14px) saturate(150%);
+        backdrop-filter: blur(14px) saturate(150%);
+        border: 1px solid color-mix(in srgb, var(--text-color) 18%, transparent);
+       /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);*/
+        padding: 20px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        /*border-radius: 5px 0 0 5px;*/
+        transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.35s ease;
+    }
+
+    /* The panel and the tab slide by the same JS-measured pixel amount
+       (--collapse-shift, set to the panel's width) so they move together
+       as one unit instead of each sliding by their own (different) width. */
+    .buttons.collapsed,
+    .buttons-toggle.collapsed {
+        transform: translateX(var(--collapse-shift, 100%));
+    }
+
+    .buttons-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+        transition: opacity 0.2s ease;
+    }
+
+    .buttons.collapsed .buttons-content {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Vertical glass tab attached to the buttons panel that hides/reveals
+       it — same blurred-glass recipe as .buttons, sized to match its
+       height via align-items: stretch on the wrapper. */
+    .buttons-toggle {
+        flex: 0 0 auto;
+        width: 22px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 8px 0 0 8px;
+        color: var(--text-color);
+        background-color: rgba(236, 236, 236, 0.35);
+        background-color: color-mix(in srgb, var(--bg-color) 45%, transparent);
+        -webkit-backdrop-filter: blur(14px) saturate(150%);
+        backdrop-filter: blur(14px) saturate(150%);
+        border: 1px solid color-mix(in srgb, var(--text-color) 18%, transparent);
+        border-right: none;
+       /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);*/
+        -webkit-appearance: none;
+        appearance: none;
+        transition: background-color 0.3s ease, border-color 0.3s ease, opacity 0.2s ease, transform 0.35s ease;
+    }
+
+    .buttons-toggle:hover {
+        opacity: 0.85;
+    }
+
+    .buttons-toggle svg {
+        width: 14px;
+        height: 14px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .buttons-toggle.collapsed svg {
+        transform: rotate(180deg);
+    }
+
+    footer{
+        padding-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .footer-datetime {
+        font-size: 13px;
+        color: var(--text-color);
     }
 </style>
 
@@ -310,7 +568,7 @@
 
     <div class="content">
         <div class="container1">
-           <!---- <div class="container2">
+            <!---- <div class="container2">
                 <div class="title">Education</div>
                 <ul>
                     <li>Duke University, B.A. in English and Political Science</li>
@@ -328,22 +586,24 @@
             <div class="container2">
                 <div class="title">Socials</div>
                 <ul>
-                    <li class="links"><a href="https://x.com/chriskuo17">Twitter <span class="arrow"><svg class="arrow-icon"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                    <li class="links"><a href="https://x.com/chriskuo17">Twitter <span class="arrow"><svg
+                                    class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="5" y1="19" x2="19" y2="5"></line>
                                     <polyline points="9 5 19 5 19 15"></polyline>
                                 </svg></span></a></li>
-                    <li class="links"><a href="https://www.instagram.com/chriskuo_reports?igsh=MW9xd2prMTRtcDk0aQ==">Instagram <span
+                    <li class="links"><a
+                            href="https://www.instagram.com/chriskuo_reports?igsh=MW9xd2prMTRtcDk0aQ==">Instagram <span
                                 class="arrow"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round">
                                     <line x1="5" y1="19" x2="19" y2="5"></line>
                                     <polyline points="9 5 19 5 19 15"></polyline>
                                 </svg></span></a>
-                    <li class="links"><a href="https://www.linkedin.com/in/christopher-kuo/">LinkedIn <span class="arrow"><svg
-                                    class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <li class="links"><a href="https://www.linkedin.com/in/christopher-kuo/">LinkedIn <span
+                                class="arrow"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
                                     <line x1="5" y1="19" x2="19" y2="5"></line>
                                     <polyline points="9 5 19 5 19 15"></polyline>
                                 </svg></span></a>
@@ -351,12 +611,13 @@
                 </ul>
             </div>
 
-             <div class="container2">
+            <div class="container2">
                 <div class="title">All Other Work</div>
                 <ul>
-                    <li class="links"><a href="https://www.nytimes.com/by/christopher-kuo">The New York Times<span class="arrow"><svg class="arrow-icon"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                    <li class="links"><a href="https://www.nytimes.com/by/christopher-kuo">The New York Times<span
+                                class="arrow"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
                                     <line x1="5" y1="19" x2="19" y2="5"></line>
                                     <polyline points="9 5 19 5 19 15"></polyline>
                                 </svg></span></a></li>
@@ -367,9 +628,10 @@
                                     <line x1="5" y1="19" x2="19" y2="5"></line>
                                     <polyline points="9 5 19 5 19 15"></polyline>
                                 </svg></span></a>
-                    <li class="links"><a href="https://www.latimes.com/people/chris-kuo">Los Angeles Times<span class="arrow"><svg
-                                    class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <li class="links"><a href="https://www.latimes.com/people/chris-kuo">Los Angeles Times<span
+                                class="arrow"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
                                     <line x1="5" y1="19" x2="19" y2="5"></line>
                                     <polyline points="9 5 19 5 19 15"></polyline>
                                 </svg></span></a>
@@ -502,20 +764,68 @@
     <div class="container4">
         <div class="title">More Work</div>
         <div class="scroll-container">
+            <button type="button" class="scroll-arrow left" aria-label="Scroll left">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button type="button" class="scroll-arrow right" aria-label="Scroll right">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
             <div class="scroll-track">
-            <a href="https://www.wsj.com/business/hospitality/burger-king-president-tom-curtis-mcdonalds-video-98206ce5?mod=author_content_page_1_pos_19"><canvas class="dither-canvas" data-src="Images/im-02988171.png"></canvas><img class="clear-img" src="Images/im-02988171.png" alt=""></a>
-            <a href="https://www.wsj.com/business/a-startup-is-supplying-drones-to-high-schools-to-stop-mass-shootings-a7800ade?mod=author_content_page_1_pos_16"><canvas class="dither-canvas" data-src="Images/im-07729743.png"></canvas><img class="clear-img" src="Images/im-07729743.png" alt=""></a>
-            <a href="https://www.wsj.com/business/earnings/cracker-barrel-works-to-repair-its-business-6d57d20c?mod=author_content_page_1_pos_20"><canvas class="dither-canvas" data-src="Images/im-16296729.png"></canvas><img class="clear-img" src="Images/im-16296729.png" alt=""></a>
-            <a href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-02-19-2026/card/doordash-stock-jumps-on-strong-order-forecast-company-eyes-chatbot-era-OrVA09BuEpBI4W85jGMr?mod=author_content_page_1_pos_23"><canvas class="dither-canvas" data-src="Images/im-16614198.png"></canvas><img class="clear-img" src="Images/im-16614198.png" alt=""></a>
-            <a href="https://www.wsj.com/business/flying-taxi-maker-archer-sues-joby-accusing-rival-of-playing-down-reliance-on-china-df9a8ae9?mod=author_content_page_1_pos_18"><canvas class="dither-canvas" data-src="Images/im-29181884.png"></canvas><img class="clear-img" src="Images/im-29181884.png" alt=""></a>
-            <a href="https://www.wsj.com/politics/policy/air-safety-bill-prompted-by-d-c-disaster-fails-in-house-3b4900e1?mod=author_content_page_1_pos_21"><canvas class="dither-canvas" data-src="Images/im-56206207.png"></canvas><img class="clear-img" src="Images/im-56206207.png" alt=""></a>
-            <a href="https://www.wsj.com/business/nasa-boss-blasts-starliner-mission-that-left-astronauts-in-space-for-months-21deabe8?mod=author_content_page_1_pos_22"><canvas class="dither-canvas" data-src="Images/im-66278288.png"></canvas><img class="clear-img" src="Images/im-66278288.png" alt=""></a>
-            <a href="https://www.wsj.com/us-news/i-cant-talk-to-anybody-one-air-traffic-controllers-mental-health-struggle-debd9624?mod=author_content_page_1_pos_13"><canvas class="dither-canvas" data-src="Images/im-68513921.png"></canvas><img class="clear-img" src="Images/im-68513921.png" alt=""></a>
-            <a href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-02-18-2026/card/doordash-prepares-to-deliver-chatbots-shopping-lists-nPNruoHwOEBcc5XEZM3i?mod=author_content_page_1_pos_24"><canvas class="dither-canvas" data-src="Images/im-74654807.png"></canvas><img class="clear-img" src="Images/im-74654807.png" alt=""></a>
-            <a href="https://www.wsj.com/business/earnings/texas-instruments-logs-higher-first-quarter-profit-revenue-09b0779b?mod=author_content_page_1_pos_14"><canvas class="dither-canvas" data-src="Images/im-85026954.png"></canvas><img class="clear-img" src="Images/im-85026954.png" alt=""></a>
-            <a href="https://www.wsj.com/business/earnings/steel-dynamics-posts-higher-first-quarter-profit-sales-amid-growth-in-steel-shipments-20b5d86c?mod=author_content_page_1_pos_15"><canvas class="dither-canvas" data-src="Images/im-85475993.png"></canvas><img class="clear-img" src="Images/im-85475993.png" alt=""></a>
-            <a href="https://www.wsj.com/business/trevor-milton-pardon-nikola-trump-3163e19c?mod=author_content_page_1_pos_17"><canvas class="dither-canvas" data-src="Images/im-85692746.png"></canvas><img class="clear-img" src="Images/im-85692746.png" alt=""></a>
-               <!---- <canvas class="dither-canvas" data-src="Images/im-02988171.png"></canvas>
+                <a
+                    href="https://www.wsj.com/business/hospitality/burger-king-president-tom-curtis-mcdonalds-video-98206ce5?mod=author_content_page_1_pos_19"><canvas
+                        class="dither-canvas" data-src="Images/im-02988171.png"></canvas><img class="clear-img"
+                        src="Images/im-02988171.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/business/a-startup-is-supplying-drones-to-high-schools-to-stop-mass-shootings-a7800ade?mod=author_content_page_1_pos_16"><canvas
+                        class="dither-canvas" data-src="Images/im-07729743.png"></canvas><img class="clear-img"
+                        src="Images/im-07729743.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/business/earnings/cracker-barrel-works-to-repair-its-business-6d57d20c?mod=author_content_page_1_pos_20"><canvas
+                        class="dither-canvas" data-src="Images/im-16296729.png"></canvas><img class="clear-img"
+                        src="Images/im-16296729.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-02-19-2026/card/doordash-stock-jumps-on-strong-order-forecast-company-eyes-chatbot-era-OrVA09BuEpBI4W85jGMr?mod=author_content_page_1_pos_23"><canvas
+                        class="dither-canvas" data-src="Images/im-16614198.png"></canvas><img class="clear-img"
+                        src="Images/im-16614198.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/business/flying-taxi-maker-archer-sues-joby-accusing-rival-of-playing-down-reliance-on-china-df9a8ae9?mod=author_content_page_1_pos_18"><canvas
+                        class="dither-canvas" data-src="Images/im-29181884.png"></canvas><img class="clear-img"
+                        src="Images/im-29181884.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/politics/policy/air-safety-bill-prompted-by-d-c-disaster-fails-in-house-3b4900e1?mod=author_content_page_1_pos_21"><canvas
+                        class="dither-canvas" data-src="Images/im-56206207.png"></canvas><img class="clear-img"
+                        src="Images/im-56206207.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/business/nasa-boss-blasts-starliner-mission-that-left-astronauts-in-space-for-months-21deabe8?mod=author_content_page_1_pos_22"><canvas
+                        class="dither-canvas" data-src="Images/im-66278288.png"></canvas><img class="clear-img"
+                        src="Images/im-66278288.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/us-news/i-cant-talk-to-anybody-one-air-traffic-controllers-mental-health-struggle-debd9624?mod=author_content_page_1_pos_13"><canvas
+                        class="dither-canvas" data-src="Images/im-68513921.png"></canvas><img class="clear-img"
+                        src="Images/im-68513921.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-02-18-2026/card/doordash-prepares-to-deliver-chatbots-shopping-lists-nPNruoHwOEBcc5XEZM3i?mod=author_content_page_1_pos_24"><canvas
+                        class="dither-canvas" data-src="Images/im-74654807.png"></canvas><img class="clear-img"
+                        src="Images/im-74654807.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/business/earnings/texas-instruments-logs-higher-first-quarter-profit-revenue-09b0779b?mod=author_content_page_1_pos_14"><canvas
+                        class="dither-canvas" data-src="Images/im-85026954.png"></canvas><img class="clear-img"
+                        src="Images/im-85026954.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/business/earnings/steel-dynamics-posts-higher-first-quarter-profit-sales-amid-growth-in-steel-shipments-20b5d86c?mod=author_content_page_1_pos_15"><canvas
+                        class="dither-canvas" data-src="Images/im-85475993.png"></canvas><img class="clear-img"
+                        src="Images/im-85475993.png" alt=""></a>
+                <a
+                    href="https://www.wsj.com/business/trevor-milton-pardon-nikola-trump-3163e19c?mod=author_content_page_1_pos_17"><canvas
+                        class="dither-canvas" data-src="Images/im-85692746.png"></canvas><img class="clear-img"
+                        src="Images/im-85692746.png" alt=""></a>
+                <!---- <canvas class="dither-canvas" data-src="Images/im-02988171.png"></canvas>
                 <canvas class="dither-canvas" data-src="Images/im-07729743.png"></canvas>
                 <canvas class="dither-canvas" data-src="Images/im-16296729.png"></canvas>
                 <canvas class="dither-canvas" data-src="Images/im-16614198.png"></canvas>
@@ -528,6 +838,39 @@
                 <canvas class="dither-canvas" data-src="Images/im-85475993.png"></canvas>
                 <canvas class="dither-canvas" data-src="Images/im-85692746.png"></canvas>
             -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span class="footer-copyright">© Chris Kuo 2026</span>
+        <div id="datetime" class="footer-datetime"></div>
+    </footer>
+    <div class="buttons-wrap">
+        <button type="button" class="buttons-toggle" aria-label="Hide buttons" aria-expanded="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="9 6 15 12 9 18"></polyline>
+            </svg>
+        </button>
+        <div class="buttons">
+            <div class="buttons-content">
+                <div class="button1">
+                    <div>Dark Mode</div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="button1">
+                    <div>Text Color</div>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
             </div>
         </div>
     </div>
@@ -610,6 +953,121 @@
             document.addEventListener("DOMContentLoaded", function () {
                 var canvases = document.querySelectorAll("canvas.dither-canvas");
                 canvases.forEach(setupCanvas);
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            document.addEventListener("DOMContentLoaded", function () {
+                var toggles = document.querySelectorAll(".buttons input[type='checkbox']");
+                var darkModeToggle = toggles[0];
+                var whiteTextToggle = toggles[1];
+
+                function applyModes() {
+                    document.body.classList.toggle("light-mode", !darkModeToggle.checked);
+                    document.body.classList.toggle("white-on", whiteTextToggle.checked);
+                }
+
+                darkModeToggle.addEventListener("change", applyModes);
+                whiteTextToggle.addEventListener("change", applyModes);
+
+                applyModes();
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            // Left/right arrows nudge the existing marquee's own playback
+            // position (via the Web Animations API) instead of touching the
+            // CSS animation itself, so the automatic infinite scroll and the
+            // hover-to-pause behavior keep working exactly as before.
+            document.addEventListener("DOMContentLoaded", function () {
+                var container = document.querySelector(".scroll-container");
+                var track = document.querySelector(".scroll-track");
+                var leftBtn = document.querySelector(".scroll-arrow.left");
+                var rightBtn = document.querySelector(".scroll-arrow.right");
+                if (!container || !track || !leftBtn || !rightBtn || !track.getAnimations) return;
+
+                var DURATION_MS = 100000; // matches "scroll-marquee 100s" below
+
+                function nudge(direction) {
+                    var anim = track.getAnimations()[0];
+                    if (!anim) return;
+
+                    var firstItem = track.querySelector("a");
+                    var stepPx = firstItem ? firstItem.getBoundingClientRect().width : 300;
+                    var totalTranslatePx = track.scrollWidth / 2; // matches the -50% keyframe
+                    if (!totalTranslatePx) return;
+
+                    var stepTimeMs = (stepPx / totalTranslatePx) * DURATION_MS;
+                    var current = anim.currentTime || 0;
+                    var next = current + (direction === "right" ? stepTimeMs : -stepTimeMs);
+                    // wrap so it stays within the infinite loop's own timeline
+                    next = ((next % DURATION_MS) + DURATION_MS) % DURATION_MS;
+                    anim.currentTime = next;
+                }
+
+                rightBtn.addEventListener("click", function () { nudge("right"); });
+                leftBtn.addEventListener("click", function () { nudge("left"); });
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            // Live footer clock, centered under the copyright line. Uses
+            // standard (12-hour, AM/PM) time rather than 24-hour time.
+            document.addEventListener("DOMContentLoaded", function () {
+                var el = document.getElementById("datetime");
+                if (!el) return;
+
+                function formatDateTime(date) {
+                    var weekday = date.toLocaleDateString("en-US", { weekday: "long" });
+                    var month = date.toLocaleDateString("en-US", { month: "long" });
+                    var day = date.getDate();
+                    var year = String(date.getFullYear()).slice(-2);
+                    var time = date.toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                        hour12: true
+                    });
+                    return weekday + ", " + month + " " + day + ", " + year + " " + time;
+                }
+
+                function tick() {
+                    el.textContent = formatDateTime(new Date());
+                }
+
+                tick();
+                setInterval(tick, 1000);
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            // Vertical glass tab that hides/reveals the buttons panel. The
+            // tab and panel are separate elements (not nested) so each gets
+            // its own clean blurred-glass backdrop, but they slide by the
+            // same measured pixel amount so they still move as one unit.
+            document.addEventListener("DOMContentLoaded", function () {
+                var wrap = document.querySelector(".buttons-wrap");
+                var panel = document.querySelector(".buttons");
+                var toggle = document.querySelector(".buttons-toggle");
+                if (!wrap || !panel || !toggle) return;
+
+                function syncShift() {
+                    wrap.style.setProperty("--collapse-shift", panel.getBoundingClientRect().width + "px");
+                }
+
+                syncShift();
+                window.addEventListener("resize", syncShift);
+
+                toggle.addEventListener("click", function () {
+                    syncShift();
+                    var collapsed = panel.classList.toggle("collapsed");
+                    toggle.classList.toggle("collapsed", collapsed);
+                    toggle.setAttribute("aria-expanded", String(!collapsed));
+                    toggle.setAttribute("aria-label", collapsed ? "Show buttons" : "Hide buttons");
+                });
             });
         })();
     </script>
